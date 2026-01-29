@@ -26,9 +26,15 @@ type BaseEmailTemplateData<Name extends string, Vars extends Record<string, stri
 }
 
 type InvitationEmailTemplateData = BaseEmailTemplateData<'invitation-email', {
-    projectOrPlatformName: string
+    projectName: string
     role: string
     setupLink: string
+}>
+
+type ProjectMemberAddedEmailTemplateData = BaseEmailTemplateData<'project-member-added', {
+    projectName: string
+    role: string
+    loginLink: string
 }>
 
 type ResetPasswordEmailTemplateData = BaseEmailTemplateData<'reset-password', {
@@ -46,25 +52,26 @@ type IssueCreatedTemplateData = BaseEmailTemplateData<'issue-created', {
     createdAt: string
 }>
 
-type IssuesSummaryTemplateData = BaseEmailTemplateData<'issues-summary', {
-    issuesUrl: string
-    issues: string
-    issuesCount: string
-    projectName: string
-}>
-
 type TriggerFailureThresholdTemplateData = BaseEmailTemplateData<'trigger-failure', {
     flowName: string
     projectName: string
 }>
 
+type BadgeAwardedTemplateData = BaseEmailTemplateData<'badge-awarded', {
+    badgeTitle: string
+    badgeDescription: string
+    badgeImageUrl: string
+    firstName: string
+}>
+
 export type EmailTemplateData =
   | InvitationEmailTemplateData
+  | ProjectMemberAddedEmailTemplateData
   | ResetPasswordEmailTemplateData
   | VerifyEmailTemplateData
   | IssueCreatedTemplateData
-  | IssuesSummaryTemplateData
   | TriggerFailureThresholdTemplateData
+  | BadgeAwardedTemplateData
 
 type SendArgs = {
     emails: string[]
